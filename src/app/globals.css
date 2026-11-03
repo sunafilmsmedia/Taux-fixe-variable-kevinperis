@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,700;1,600&family=Inter:wght@400;500;600;700;800&display=swap");
+
+:root {
+  --primary: #00332c;
+  --primary-deep: #001f1a;
+  --taupe: #b3ac9c;
+}
+
+html,
+body {
+  background: var(--primary);
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+}
+
+@layer components {
+  /* Dégradé taupe/argenté animé sur texte — reprend le taupe de la palette KP */
+  .silver-text {
+    background: linear-gradient(180deg, #ffffff 0%, #e5e3dc 45%, #b3ac9c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  .silver-shimmer {
+    background: linear-gradient(90deg, #8f8a7c, #f5f4f0, #c6c1b3, #f5f4f0, #8f8a7c);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    @apply animate-shimmer;
+  }
+
+  .silver-line {
+    height: 1px;
+    background: linear-gradient(90deg, rgba(179, 172, 156, 0) 0%, #b3ac9c 50%, rgba(179, 172, 156, 0) 100%);
+  }
+
+  /* Mot vedette — serif éditorial, écho du monogramme KP */
+  .brand-word {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-weight: 600;
+  }
+
+  /* Petites majuscules espacées — labels discrets */
+  .caps-label {
+    font-family: "Inter", Georgia, serif;
+    letter-spacing: 0.14em;
+  }
+}
