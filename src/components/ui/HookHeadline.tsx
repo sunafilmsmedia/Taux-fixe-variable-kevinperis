@@ -3,29 +3,29 @@
 import { useEffect, useState } from "react";
 
 const SWITCH_MS = 5000;
-// Deux couleurs de la palette KP, assez contrastées pour alterner sur fond
-// clair — contrairement à taux120jours-michel-turgeon, on évite ici un
-// rouge/vert "mauvais choix / bon choix" : fixe et variable sont deux
-// options neutres, pas un verdict en soi.
-const VERT = "#00332C";
-const BLEU = "#3F6773";
+// Fond de page maintenant vert foncé (#00332C) — le vert ne peut donc plus
+// servir d'accent de texte ici (invisible sur lui-même). On alterne plutôt
+// entre le taupe et le bleu de la palette KP, qui contrastent bien sur fond
+// vert foncé ; fixe et variable restent deux options neutres, pas un verdict.
+const TAUPE = "#DCD6C6";
+const BLEU = "#9BB3BC";
 
 export default function HookHeadline() {
-  const [fixeIsVert, setFixeIsVert] = useState(true);
+  const [fixeIsTaupe, setFixeIsTaupe] = useState(true);
 
   useEffect(() => {
-    const id = setInterval(() => setFixeIsVert((v) => !v), SWITCH_MS);
+    const id = setInterval(() => setFixeIsTaupe((v) => !v), SWITCH_MS);
     return () => clearInterval(id);
   }, []);
 
   return (
-    <h1 className="mt-6 font-serif text-4xl font-bold leading-[1.1] text-ink sm:text-5xl">
+    <h1 className="mt-6 font-serif text-4xl font-bold leading-[1.1] text-white sm:text-5xl">
       Taux{" "}
-      <span className="italic transition-colors duration-700" style={{ color: fixeIsVert ? VERT : BLEU }}>
+      <span className="italic transition-colors duration-700" style={{ color: fixeIsTaupe ? TAUPE : BLEU }}>
         fixe
       </span>{" "}
       ou{" "}
-      <span className="italic transition-colors duration-700" style={{ color: fixeIsVert ? BLEU : VERT }}>
+      <span className="italic transition-colors duration-700" style={{ color: fixeIsTaupe ? BLEU : TAUPE }}>
         variable
       </span>{" "}
       : lequel choisir pour ton premier achat?

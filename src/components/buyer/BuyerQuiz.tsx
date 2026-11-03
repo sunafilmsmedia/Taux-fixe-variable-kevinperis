@@ -146,44 +146,46 @@ export default function BuyerQuiz() {
           </div>
         )}
 
-        <ProgressBar current={clampedIndex + 1} total={STEPS.length} />
+        <div className="rounded-3xl bg-white p-6 shadow-card sm:p-8">
+          <ProgressBar current={clampedIndex + 1} total={STEPS.length} />
 
-        <div key={currentStep} className="mt-8 animate-fadeUp">
-          <StepContent step={currentStep} answers={answers} update={update} advance={goNext} />
-        </div>
+          <div key={currentStep} className="mt-8 animate-fadeUp">
+            <StepContent step={currentStep} answers={answers} update={update} advance={goNext} />
+          </div>
 
-        {error && (
-          <p className="mt-4 rounded-xl border border-danger/30 bg-danger/5 px-4 py-3 text-sm text-danger">{error}</p>
-        )}
-
-        <div className="mt-8 flex items-center gap-3">
-          {clampedIndex > 0 && (
-            <button
-              onClick={goBack}
-              className="h-14 rounded-2xl border border-line px-6 text-sm font-semibold text-ink transition hover:bg-tint"
-            >
-              Retour
-            </button>
+          {error && (
+            <p className="mt-4 rounded-xl border border-danger/30 bg-danger/5 px-4 py-3 text-sm text-danger">{error}</p>
           )}
-          {currentStep === "contact" ? (
-            <button
-              onClick={handleSubmit}
-              disabled={!canContinue}
-              className="h-14 flex-1 rounded-2xl bg-primary px-8 text-base font-bold text-white shadow-glow transition enabled:hover:bg-primary-light disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              Voir mon profil
-            </button>
-          ) : NEEDS_EXPLICIT_CONTINUE.has(currentStep) ? (
-            <button
-              onClick={goNext}
-              disabled={!canContinue}
-              className="h-14 flex-1 rounded-2xl bg-primary px-8 text-base font-bold text-white shadow-glow transition enabled:hover:bg-primary-light disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              Continuer
-            </button>
-          ) : (
-            <p className="text-sm text-muted">Touche une réponse pour continuer →</p>
-          )}
+
+          <div className="mt-8 flex items-center gap-3">
+            {clampedIndex > 0 && (
+              <button
+                onClick={goBack}
+                className="h-14 rounded-2xl border border-line px-6 text-sm font-semibold text-ink transition hover:bg-tint"
+              >
+                Retour
+              </button>
+            )}
+            {currentStep === "contact" ? (
+              <button
+                onClick={handleSubmit}
+                disabled={!canContinue}
+                className="h-14 flex-1 rounded-2xl bg-primary px-8 text-base font-bold text-white shadow-glow transition enabled:hover:bg-primary-light disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                Voir mon profil
+              </button>
+            ) : NEEDS_EXPLICIT_CONTINUE.has(currentStep) ? (
+              <button
+                onClick={goNext}
+                disabled={!canContinue}
+                className="h-14 flex-1 rounded-2xl bg-primary px-8 text-base font-bold text-white shadow-glow transition enabled:hover:bg-primary-light disabled:cursor-not-allowed disabled:opacity-40"
+              >
+                Continuer
+              </button>
+            ) : (
+              <p className="text-sm text-muted">Touche une réponse pour continuer →</p>
+            )}
+          </div>
         </div>
       </div>
 

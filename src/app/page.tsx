@@ -5,7 +5,7 @@ import { buyerConfig } from "@/lib/config";
 
 export default function LandingPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white via-white to-tint">
+    <main className="min-h-screen bg-gradient-to-b from-primary-deep via-primary to-primary-deep">
       <header className="mx-auto flex w-full max-w-[1280px] justify-center px-6 pt-8">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/logo-kp.jpg" alt={buyerConfig.brokerName} className="h-16 w-16 rounded-full object-cover shadow-card" />
@@ -18,7 +18,7 @@ export default function LandingPage() {
 
         <HookHeadline />
 
-        <p className="mt-6 text-lg text-muted">
+        <p className="mt-6 text-lg text-white/75">
           Réponds à quelques questions sur ta situation et découvre ton profil — taux fixe ou variable, lequel te
           convient pour ton premier achat? Analyse gratuite et personnalisée par {buyerConfig.brokerName}.
         </p>
@@ -26,7 +26,7 @@ export default function LandingPage() {
         <TrackedLink
           href="/quiz"
           event="ViewContent"
-          className="mt-8 inline-flex h-14 items-center justify-center rounded-2xl bg-primary px-8 text-base font-bold text-white shadow-glow transition hover:bg-primary-light"
+          className="mt-8 inline-flex h-14 items-center justify-center rounded-2xl bg-[#E5E3DC] px-8 text-base font-bold text-primary shadow-glow transition hover:bg-white"
         >
           Découvrir mon profil →
         </TrackedLink>

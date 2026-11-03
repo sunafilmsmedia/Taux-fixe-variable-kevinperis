@@ -15,11 +15,14 @@ interface StoredResult {
   input: BuyerInput;
 }
 
-const TONE_STYLES: Record<string, string> = {
-  positive: "border-positive/30 bg-positive/5 text-positive",
-  urgent: "border-primary/30 bg-primary/5 text-primary",
-  neutral: "border-accent/30 bg-accent/5 text-ink",
-  info: "border-taupe/40 bg-tint text-ink",
+// Fond de page maintenant vert foncé — cette carte reste sur un blanc opaque
+// (plutôt qu'un tint translucide sur fond clair comme dans le gabarit
+// d'origine) pour rester lisible peu importe la couleur de page derrière.
+const TONE_BORDER: Record<string, string> = {
+  positive: "border-positive/40",
+  urgent: "border-danger/40",
+  neutral: "border-accent/40",
+  info: "border-taupe/50",
 };
 
 export default function ResultView({ leadId }: { leadId: string }) {
@@ -34,8 +37,8 @@ export default function ResultView({ leadId }: { leadId: string }) {
 
   if (loaded && !data) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-gradient-to-b from-white via-white to-tint px-6 text-center">
-        <div>
+      <main className="flex min-h-screen items-center justify-center bg-gradient-to-b from-primary-deep via-primary to-primary-deep px-6 text-center">
+        <div className="rounded-3xl bg-white p-8 shadow-card">
           <h1 className="font-serif text-2xl font-bold text-ink">Résultat introuvable</h1>
           <p className="mt-3 text-muted">Ton résultat n&apos;est plus disponible. Tu peux refaire le quiz en 2 minutes.</p>
           <Link
@@ -50,7 +53,7 @@ export default function ResultView({ leadId }: { leadId: string }) {
   }
 
   if (!data) {
-    return <main className="min-h-screen bg-white" />;
+    return <main className="min-h-screen bg-primary" />;
   }
 
   const { result, input } = data;
@@ -61,16 +64,16 @@ export default function ResultView({ leadId }: { leadId: string }) {
   const hasRates = rates.generated && (rates.fixe5 || rates.variable);
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white via-white to-tint">
+    <main className="min-h-screen bg-gradient-to-b from-primary-deep via-primary to-primary-deep">
       <header className="mx-auto flex w-full max-w-[1280px] justify-center px-6 pt-8">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/logo-kp.jpg" alt={buyerConfig.brokerName} className="h-16 w-16 rounded-full object-cover" />
+        <img src="/logo-kp.jpg" alt={buyerConfig.brokerName} className="h-16 w-16 rounded-full object-cover shadow-card" />
       </header>
 
       <div className="mx-auto w-full max-w-2xl px-6 py-10">
         <div className="animate-fadeUp">
-          <span className="caps-label text-xs font-semibold text-primary">Ton profil</span>
-          <h1 className="mt-3 font-serif text-3xl font-bold leading-tight text-ink sm:text-4xl">
+          <span className="caps-label text-xs font-semibold text-[#DCD6C6]">Ton profil</span>
+          <h1 className="mt-3 font-serif text-3xl font-bold leading-tight text-white sm:text-4xl">
             {input.firstName}, {content.headline.toLowerCase()}.
           </h1>
 
@@ -84,8 +87,8 @@ export default function ResultView({ leadId }: { leadId: string }) {
             </div>
           </div>
 
-          <div className={`mt-4 rounded-3xl border p-6 ${TONE_STYLES[content.tone]}`}>
-            <p className="text-sm leading-relaxed sm:text-base">{content.message}</p>
+          <div className={`mt-4 rounded-3xl border bg-white p-6 ${TONE_BORDER[content.tone]}`}>
+            <p className="text-sm leading-relaxed text-ink sm:text-base">{content.message}</p>
           </div>
 
           {notes.length > 0 && (
@@ -149,7 +152,7 @@ export default function ResultView({ leadId }: { leadId: string }) {
 
           <Link
             href="/quiz"
-            className="mt-6 block w-full rounded-2xl border border-line px-6 py-3 text-center text-sm font-semibold text-muted transition hover:bg-tint"
+            className="mt-6 block w-full rounded-2xl border border-white/25 px-6 py-3 text-center text-sm font-semibold text-white/80 transition hover:bg-white/10"
           >
             Recommencer le profil
           </Link>
