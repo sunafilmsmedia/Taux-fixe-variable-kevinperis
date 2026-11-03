@@ -31,28 +31,12 @@ export default function LandingPage() {
           Découvrir mon profil →
         </TrackedLink>
 
-        <div className="mt-10 grid w-full gap-3 sm:grid-cols-3">
-          <ValueProp icon="🔒" title="Confidentiel" subtitle="Tes réponses restent privées" />
-          <ValueProp icon="✓" title="Sans engagement" subtitle="Juste un profil clair" />
-          <ValueProp icon="⚡" title="Réponse rapide" subtitle="Kevin te recontacte vite" />
-        </div>
-
-        <div className="silver-line my-10 w-full max-w-xs" />
+        <div className="silver-line mt-10 mb-10 w-full max-w-xs" />
 
         <div className="w-full max-w-sm">
           <BrokerCard />
         </div>
       </div>
     </main>
-  );
-}
-
-function ValueProp({ icon, title, subtitle }: { icon: string; title: string; subtitle: string }) {
-  return (
-    <div className="rounded-2xl border border-line bg-white p-4 shadow-card">
-      <div className="text-xl">{icon}</div>
-      <div className="mt-1.5 text-sm font-bold text-ink">{title}</div>
-      <div className="text-xs text-muted">{subtitle}</div>
-    </div>
   );
 }
