@@ -1,6 +1,14 @@
 import type { BuyerInput, DecisionResult } from "@/types/buyer";
 import { URGENCY_LABELS, VERDICT_LABELS } from "./decision";
-import { DOWN_PAYMENT_LABELS, HORIZON_LABELS, INCOME_LABELS, PROPERTY_TYPE_LABELS, formatDebtsList } from "./format";
+import {
+  DOWN_PAYMENT_LABELS,
+  HORIZON_LABELS,
+  INCOME_LABELS,
+  PAYMENT_SHOCK_LABELS,
+  PROPERTY_TYPE_LABELS,
+  TIMELINE_LABELS,
+  formatDebtsList,
+} from "./format";
 import { formatDateFr } from "./messages";
 
 /**
@@ -59,10 +67,13 @@ export function buildCrmPayload(input: BuyerInput, decision: DecisionResult): Cr
     tags,
     customFields: {
       income: INCOME_LABELS[input.income],
+      // « Si ton paiement montait de 200 $/mois demain, tu le vivrais comment? »
+      paymentShock: PAYMENT_SHOCK_LABELS[input.paymentShock],
       horizon: HORIZON_LABELS[input.horizon],
       propertyType: PROPERTY_TYPE_LABELS[input.propertyType],
       downPaymentSource: DOWN_PAYMENT_LABELS[input.downPaymentSource],
       debts: formatDebtsList(input.debts),
+      timeline: TIMELINE_LABELS[input.timeline],
       verdict: VERDICT_LABELS[decision.verdict],
       riskScore: decision.riskScore,
       urgency: URGENCY_LABELS[decision.urgency],
