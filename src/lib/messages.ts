@@ -73,7 +73,7 @@ export function buildContextNotes(input: BuyerInput): string[] {
   }
   if (input.propertyType === "duplex") {
     notes.push(
-      "Un revenu de loyer peut parfois être considéré dans ta capacité d'emprunt pour un duplex — à valider avec Kevin."
+      "Un revenu de loyer peut parfois être considéré dans ta capacité d'emprunt pour un plex (duplex, triplex, 4+ logements) — à valider avec Kevin."
     );
   }
   if (input.downPaymentSource === "don_parents") {

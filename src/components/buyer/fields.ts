@@ -36,7 +36,7 @@ export const HORIZON_OPTIONS: ChoiceOption<Horizon>[] = [
 export const PROPERTY_TYPE_OPTIONS: ChoiceOption<PropertyType>[] = [
   { label: "Condo", icon: "🏢", value: "condo" },
   { label: "Maison", icon: "🏠", value: "maison" },
-  { label: "Duplex", icon: "🏘️", value: "duplex" },
+  { label: "Duplex, triplex, 4+ plex", icon: "🏘️", value: "duplex" },
 ];
 
 export const DOWN_PAYMENT_OPTIONS: ChoiceOption<DownPaymentSource>[] = [

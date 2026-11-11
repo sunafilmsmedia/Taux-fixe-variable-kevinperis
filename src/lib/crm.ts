@@ -46,7 +46,7 @@ export function buildCrmPayload(input: BuyerInput, decision: DecisionResult): Cr
   if (decision.debtsCount > 0) tags.push("A des dettes actuelles");
   if (input.downPaymentSource === "don_parents") tags.push("Mise de fonds - Don familial");
   if (input.downPaymentSource === "reer_celiapp") tags.push("Mise de fonds - REER/CELIAPP");
-  if (input.propertyType === "duplex") tags.push("Achat duplex");
+  if (input.propertyType === "duplex") tags.push("Achat plex (duplex, triplex, 4+)");
   if (decision.shortHorizonNote) tags.push("Horizon court (< 3 ans)");
 
   return {

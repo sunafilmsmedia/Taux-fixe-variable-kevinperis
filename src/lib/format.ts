@@ -21,7 +21,7 @@ export const HORIZON_LABELS: Record<Horizon, string> = {
 export const PROPERTY_TYPE_LABELS: Record<PropertyType, string> = {
   condo: "Condo",
   maison: "Maison",
-  duplex: "Duplex",
+  duplex: "Duplex, triplex, 4+ plex",
 };
 
 export const DOWN_PAYMENT_LABELS: Record<DownPaymentSource, string> = {
