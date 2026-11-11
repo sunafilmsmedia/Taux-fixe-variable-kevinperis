@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
+import { META_PIXEL_ID } from "@/lib/pixel";
 
 export const metadata: Metadata = {
   title: "Taux fixe ou variable pour ton premier achat? · Kevin Péris",
@@ -8,10 +9,9 @@ export const metadata: Metadata = {
     "Taux fixe ou variable : lequel choisir pour ton premier achat? Découvre ton profil de risque en quelques questions — analyse gratuite et personnalisée par Kevin Péris, courtier hypothécaire chez Multi-Prêts Hypothèques.",
 };
 
-// Pixel Meta (Facebook) et Microsoft Clarity de Kevin Péris — pas encore
-// connus (nouveau client, voir .env.example). Les scripts ne s'injectent
-// que si les variables d'environnement correspondantes sont définies.
-const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+// Pixel Meta « Pixel de Kevin » (1388001303411655, compte pub
+// Facebook_Ads_Kevin_Peris) — codé par défaut, NEXT_PUBLIC_META_PIXEL_ID peut
+// le remplacer. Clarity : ne s'injecte que si NEXT_PUBLIC_CLARITY_ID est défini.
 const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

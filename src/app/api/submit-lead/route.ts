@@ -3,6 +3,7 @@ import { randomUUID } from "crypto";
 import { buyerInputSchema } from "@/lib/validation";
 import { processLead } from "@/lib/engine";
 import { buildCrmPayload, sendToCrm } from "@/lib/crm";
+import { sendCapiLead } from "@/lib/metaCapi";
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -36,7 +37,25 @@ export async function POST(request: Request) {
     // Pas de seuil "trop petit" : un premier acheteur qui termine le
     // questionnaire vaut toujours un suivi de Kevin, peu importe le verdict.
     const crmPayload = buildCrmPayload(input, result.decision);
-    const crm = await sendToCrm(crmPayload);
+    const meta = readMetaFields(body);
+    const [crm] = await Promise.all([
+      sendToCrm(crmPayload),
+      // Meta Conversions API — Lead serveur, dédupliqué avec le pixel
+      // navigateur via le même eventId.
+      sendCapiLead({
+        eventId: meta.eventId,
+        email: input.email,
+        phone: input.phone,
+        firstName: input.firstName,
+        lastName: input.lastName,
+        fbc: meta.fbc,
+        fbp: meta.fbp,
+        clientIp: request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || undefined,
+        userAgent: request.headers.get("user-agent") || undefined,
+        sourceUrl: meta.sourceUrl,
+        customData: { content_name: "Taux fixe ou variable - premier acheteur" },
+      }),
+    ]);
     if (!crm.ok) {
       console.error(crm.error);
     }
@@ -54,4 +73,11 @@ export async function POST(request: Request) {
       { status: 500 }
     );
   }
+}
+
+// Champs d'attribution Meta envoyés par le navigateur (hors schéma du lead).
+function readMetaFields(body: unknown): { eventId?: string; fbc?: string; fbp?: string; sourceUrl?: string } {
+  const b = (body && typeof body === "object" ? body : {}) as Record<string, unknown>;
+  const str = (v: unknown) => (typeof v === "string" && v.length > 0 && v.length < 500 ? v : undefined);
+  return { eventId: str(b.eventId), fbc: str(b.fbc), fbp: str(b.fbp), sourceUrl: str(b.sourceUrl) };
 }

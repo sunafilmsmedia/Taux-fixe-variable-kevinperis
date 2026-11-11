@@ -26,7 +26,7 @@ import {
   type ChoiceOption,
 } from "./fields";
 import { computeLivePreview } from "@/lib/livePreview";
-import { trackPixel } from "@/lib/pixel";
+import { getMetaAttribution, trackPixel } from "@/lib/pixel";
 
 type StepKey =
   | "income"
@@ -100,12 +100,17 @@ export default function BuyerQuiz() {
 
     const payload = buildPayload(answers);
     const startedAt = Date.now();
+    // Même eventId pour le pixel navigateur et la Conversions API (dédup).
+    const eventId =
+      typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : `lead-${Date.now()}-${Math.random().toString(36).slice(2)}`;
 
     try {
       const res = await fetch("/api/submit-lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({ ...payload, eventId, ...getMetaAttribution() }),
       });
       const data = await res.json();
 
@@ -115,7 +120,7 @@ export default function BuyerQuiz() {
         return;
       }
 
-      trackPixel("Lead");
+      trackPixel("Lead", { content_name: "Taux fixe ou variable - premier acheteur" }, eventId);
       const elapsed = Date.now() - startedAt;
       const wait = Math.max(1000 - elapsed, 0);
       sessionStorage.setItem(

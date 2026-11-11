@@ -36,7 +36,9 @@ npm run dev        # http://localhost:3000
 | Taux du marché (fixe 5 ans + variable) | 🟡 recherche web Claude, cache 12h | `src/lib/rates.ts` — nécessite `ANTHROPIC_API_KEY` |
 | Réponse IA personnalisée | 🟡 **stub** (texte généré localement) sans clé | `src/lib/ai.ts` — nécessite `ANTHROPIC_API_KEY` |
 | Envoi CRM | 🟡 **stub** (log serveur) sans URL | `src/lib/crm.ts` → définir `CRM_WEBHOOK_URL` (pas encore connu — à obtenir de Kevin) |
-| Pixel Meta / Clarity | ⚪ non branchés | `src/app/layout.tsx` → `NEXT_PUBLIC_META_PIXEL_ID` / `NEXT_PUBLIC_CLARITY_ID` |
+| Pixel Meta (« Pixel de Kevin » 1388001303411655) | ✅ PageView + Lead navigateur | `src/lib/pixel.ts` (ID par défaut, remplaçable par `NEXT_PUBLIC_META_PIXEL_ID`) |
+| Meta Conversions API (Lead serveur) | 🟡 code prêt, nécessite `META_CAPI_TOKEN` | `src/lib/metaCapi.ts`, dédup via `eventId` |
+| Clarity | ⚪ non branché | `NEXT_PUBLIC_CLARITY_ID` |
 
 Sans `ANTHROPIC_API_KEY`, le verdict reste 100 % correct (le calcul ne dépend pas de l'IA) mais les
 taux du marché restent `null` et le texte retombe sur un gabarit local clair, jamais un chiffre

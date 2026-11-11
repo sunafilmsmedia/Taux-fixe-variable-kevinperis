@@ -2,9 +2,8 @@
  * Configuration globale de l'outil premier acheteur.
  *
  * Coordonnées confirmées via la carte d'affaires et la palette fournies par
- * Kevin le 2026-11-03. Pas de pixel Meta ni de projet Clarity connus pour
- * l'instant — voir NEXT_PUBLIC_META_PIXEL_ID / NEXT_PUBLIC_CLARITY_ID dans
- * .env.example, à brancher une fois que Kevin les aura confirmés.
+ * Kevin le 2026-11-03. Pixel Meta : voir src/lib/pixel.ts. Clarity pas encore
+ * connu — voir NEXT_PUBLIC_CLARITY_ID dans .env.example.
  */
 export const buyerConfig = {
   brokerName: "Kevin Péris",
